@@ -1,5 +1,6 @@
 import Navbar from '../components/Navbar.jsx'
 import HeroIMGreact from '../assets/images/HeroIMGreact.jpg'
+import Footer from '../components/Footer.jsx'
 
 export default function LandingPage() {
   return (
@@ -43,7 +44,10 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
+
+
   )
 }
 
