@@ -68,7 +68,7 @@ function LandingPage() {
         <div className="absolute inset-0 z-0 bg-linear-to-t from-black via-black/40 to-black/10" />
 
         {/* Hero text + image */}
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pt-24 md:pt-28 gap-5 px-6">
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-start pt-24 sm:pt-32 md:justify-center md:pt-16 gap-5 px-6">
 
           <img
             src="/samuel.webp"
