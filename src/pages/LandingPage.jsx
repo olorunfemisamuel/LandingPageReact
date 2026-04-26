@@ -4,6 +4,7 @@ import Footer from '../components/Footer.jsx'
 import AboutMe from '@/components/aboutMe.jsx';
 import SocialMediaIcons from '@/components/socialmediaIcons.jsx';
 import { useState, useEffect } from 'react';
+import ServicesSection from '@/components/ServicesSection.jsx';
 
 
 const phrases = ["Hello! I'm Samuel Olorunfemi.", "I'm a Fullstack Developer."];
@@ -127,6 +128,8 @@ function LandingPage() {
       </section>
 
       <AboutMe />
+
+      <ServicesSection />
 
       <Footer />
     </div>

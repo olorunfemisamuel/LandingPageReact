@@ -39,15 +39,45 @@ const projects = [
     desc: "E-learning platform — courses, payments, and community features built end-to-end.",
     url: "https://digitaledhub.com.ng",
     image: "/projects/digitaledhub.png",
-    tag: "Full Stack"
   },
   {
     name: "Shopeasy",
     desc: "Open source e-commerce project — contributed core features and improvements.",
     url: "https://github.com/olorunfemisamuel/ShopEasy",
     image: "/projects/github.png",
-    tag: "Open Source"
   },
+
+  {
+    name: "The Lightfortress Church",
+    desc: "Developer on Project — Vue.js",
+    url: "https://joinbcc25.org",
+    image: "/projects/bcc.png",
+  },
+
+
+  {
+    name: "Technology Company Website",
+    desc: "Frontend Developer on Project — Vanilla Javascript.",
+    url: "https://bytespark.com.ng/",
+    image: "/projects/bytespark.png",
+  },
+
+  {
+    name: "Portfolio",
+    desc: "Open source e-commerce project — contributed core features and improvements.",
+    url: "https://themofemi-portfolio.vercel.app/",
+    image: "/projects/mo.png",
+  },
+
+  {
+    name: "Financial Company Website",
+    desc: "Open source e-commerce project — contributed core features and improvements.",
+    url: "https://dph-website-qeq8.vercel.app/",
+    image: "/projects/dph.png",
+    // tag: "Frontend "
+  },
+
+
 ];
 
 function ProjectCards() {
