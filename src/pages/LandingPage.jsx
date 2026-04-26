@@ -45,7 +45,7 @@ function LandingPage() {
     <div className="min-h-screen bg-black text-white">
       <Navbar />
       <section id="home" className="relative">
-        <div style={{ width: '100%', height: 'calc(100vh - 80px)', position: 'relative' }}>
+        <div style={{ width: '100%', height: '100vh', position: 'relative' }}>
 
           {!isLowEnd ? (
             <Prism
@@ -68,7 +68,7 @@ function LandingPage() {
         <div className="absolute inset-0 z-0 bg-linear-to-t from-black via-black/40 to-black/10" />
 
         {/* Hero text + image */}
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-end pb-16 gap-5 px-6">
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pt-24 md:pt-28 gap-5 px-6">
 
           <img
             src="/samuel.webp"
@@ -85,7 +85,7 @@ function LandingPage() {
 
           {/* Responsive subtitle */}
           <p className="text-xs sm:text-sm text-white/60 tracking-widest uppercase text-center px-4">
-            Scroll down to explore my portfolio
+            Explore my portfolio
           </p>
 
           {/* SVG Scroll button */}
