@@ -22,14 +22,6 @@ const Prism = ({
 
   useEffect(() => {
     const container = containerRef.current;
-    const onVisibilityChange = () => {
-      if (document.hidden) stopRAF();
-      else startRAF();
-    };
-    document.addEventListener('visibilitychange', onVisibilityChange);
-    
-    // Add to cleanup return:
-    document.removeEventListener('visibilitychange', onVisibilityChange);
     if (!container) return;
 
     const H = Math.max(0.001, height);
@@ -51,10 +43,9 @@ const Prism = ({
     const HOVSTR = Math.max(0, hoverStrength || 1);
     const INERT = Math.max(0, Math.min(1, inertia || 0.12));
 
+    // ✅ Capped at 1x — cuts GPU work by 4x on retina/mobile screens
+    const dpr = Math.min(1, window.devicePixelRatio || 1);
 
-
-    // After — render at max 1x on any device
-const dpr = Math.min(1, window.devicePixelRatio || 1);
     const renderer = new Renderer({
       dpr,
       alpha: transparent,
@@ -168,7 +159,8 @@ const dpr = Math.min(1, window.devicePixelRatio || 1);
           wob = mat2(c0, c1, c2, c0);
         }
 
-        const int STEPS = 100;
+        // ✅ Reduced from 100 to 40 — 60% less GPU work per frame
+        const int STEPS = 40;
         for (int i = 0; i < STEPS; i++) {
           p = vec3(f, z);
           p.xz = p.xz * wob;
@@ -248,39 +240,28 @@ const dpr = Math.min(1, window.devicePixelRatio || 1);
 
     const rotBuf = new Float32Array(9);
     const setMat3FromEuler = (yawY, pitchX, rollZ, out) => {
-      const cy = Math.cos(yawY),
-        sy = Math.sin(yawY);
-      const cx = Math.cos(pitchX),
-        sx = Math.sin(pitchX);
-      const cz = Math.cos(rollZ),
-        sz = Math.sin(rollZ);
+      const cy = Math.cos(yawY), sy = Math.sin(yawY);
+      const cx = Math.cos(pitchX), sx = Math.sin(pitchX);
+      const cz = Math.cos(rollZ), sz = Math.sin(rollZ);
       const r00 = cy * cz + sy * sx * sz;
       const r01 = -cy * sz + sy * sx * cz;
       const r02 = sy * cx;
-
       const r10 = cx * sz;
       const r11 = cx * cz;
       const r12 = -sx;
-
       const r20 = -sy * cz + cy * sx * sz;
       const r21 = sy * sz + cy * sx * cz;
       const r22 = cy * cx;
-
-      out[0] = r00;
-      out[1] = r10;
-      out[2] = r20;
-      out[3] = r01;
-      out[4] = r11;
-      out[5] = r21;
-      out[6] = r02;
-      out[7] = r12;
-      out[8] = r22;
+      out[0] = r00; out[1] = r10; out[2] = r20;
+      out[3] = r01; out[4] = r11; out[5] = r21;
+      out[6] = r02; out[7] = r12; out[8] = r22;
       return out;
     };
 
     const NOISE_IS_ZERO = NOISE < 1e-6;
     let raf = 0;
     const t0 = performance.now();
+
     const startRAF = () => {
       if (raf) return;
       raf = requestAnimationFrame(render);
@@ -291,6 +272,13 @@ const dpr = Math.min(1, window.devicePixelRatio || 1);
       raf = 0;
     };
 
+    // ✅ Properly placed inside the effect — pauses when tab is hidden
+    const onVisibilityChange = () => {
+      if (document.hidden) stopRAF();
+      else startRAF();
+    };
+    document.addEventListener('visibilitychange', onVisibilityChange);
+
     const rnd = () => Math.random();
     const wX = (0.3 + rnd() * 0.6) * RSX;
     const wY = (0.2 + rnd() * 0.7) * RSY;
@@ -298,11 +286,8 @@ const dpr = Math.min(1, window.devicePixelRatio || 1);
     const phX = rnd() * Math.PI * 2;
     const phZ = rnd() * Math.PI * 2;
 
-    let yaw = 0,
-      pitch = 0,
-      roll = 0;
-    let targetYaw = 0,
-      targetPitch = 0;
+    let yaw = 0, pitch = 0, roll = 0;
+    let targetYaw = 0, targetPitch = 0;
     const lerp = (a, b, t) => a + (b - a) * t;
 
     const pointer = { x: 0, y: 0, inside: true };
@@ -317,19 +302,12 @@ const dpr = Math.min(1, window.devicePixelRatio || 1);
       pointer.y = Math.max(-1, Math.min(1, ny));
       pointer.inside = true;
     };
-    const onLeave = () => {
-      pointer.inside = false;
-    };
-    const onBlur = () => {
-      pointer.inside = false;
-    };
+    const onLeave = () => { pointer.inside = false; };
+    const onBlur = () => { pointer.inside = false; };
 
     let onPointerMove = null;
     if (animationType === 'hover') {
-      onPointerMove = e => {
-        onMove(e);
-        startRAF();
-      };
+      onPointerMove = e => { onMove(e); startRAF(); };
       window.addEventListener('pointermove', onPointerMove, { passive: true });
       window.addEventListener('mouseleave', onLeave);
       window.addEventListener('blur', onBlur);
@@ -351,17 +329,16 @@ const dpr = Math.min(1, window.devicePixelRatio || 1);
         const maxYaw = 0.6 * HOVSTR;
         targetYaw = (pointer.inside ? -pointer.x : 0) * maxYaw;
         targetPitch = (pointer.inside ? pointer.y : 0) * maxPitch;
-        const prevYaw = yaw;
-        const prevPitch = pitch;
-        const prevRoll = roll;
+        const prevYaw = yaw, prevPitch = pitch, prevRoll = roll;
         yaw = lerp(prevYaw, targetYaw, INERT);
         pitch = lerp(prevPitch, targetPitch, INERT);
         roll = lerp(prevRoll, 0, 0.1);
         program.uniforms.uRot.value = setMat3FromEuler(yaw, pitch, roll, rotBuf);
-
         if (NOISE_IS_ZERO) {
           const settled =
-            Math.abs(yaw - targetYaw) < 1e-4 && Math.abs(pitch - targetPitch) < 1e-4 && Math.abs(roll) < 1e-4;
+            Math.abs(yaw - targetYaw) < 1e-4 &&
+            Math.abs(pitch - targetPitch) < 1e-4 &&
+            Math.abs(roll) < 1e-4;
           if (settled) continueRAF = false;
         }
       } else if (animationType === '3drotate') {
@@ -372,15 +349,9 @@ const dpr = Math.min(1, window.devicePixelRatio || 1);
         program.uniforms.uRot.value = setMat3FromEuler(yaw, pitch, roll, rotBuf);
         if (TS < 1e-6) continueRAF = false;
       } else {
-        rotBuf[0] = 1;
-        rotBuf[1] = 0;
-        rotBuf[2] = 0;
-        rotBuf[3] = 0;
-        rotBuf[4] = 1;
-        rotBuf[5] = 0;
-        rotBuf[6] = 0;
-        rotBuf[7] = 0;
-        rotBuf[8] = 1;
+        rotBuf[0] = 1; rotBuf[1] = 0; rotBuf[2] = 0;
+        rotBuf[3] = 0; rotBuf[4] = 1; rotBuf[5] = 0;
+        rotBuf[6] = 0; rotBuf[7] = 0; rotBuf[8] = 1;
         program.uniforms.uRot.value = rotBuf;
         if (TS < 1e-6) continueRAF = false;
       }
@@ -409,6 +380,7 @@ const dpr = Math.min(1, window.devicePixelRatio || 1);
     return () => {
       stopRAF();
       ro.disconnect();
+      document.removeEventListener('visibilitychange', onVisibilityChange); // ✅ properly cleaned up
       if (animationType === 'hover') {
         if (onPointerMove) window.removeEventListener('pointermove', onPointerMove);
         window.removeEventListener('mouseleave', onLeave);

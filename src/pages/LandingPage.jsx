@@ -1,16 +1,39 @@
 import Navbar from '../components/Navbar.jsx'
 import Prism from '../components/Prism';
 import Footer from '../components/Footer.jsx'
-import SplitText from "../components/SplitText";
 import AboutMe from '@/components/aboutMe.jsx';
 import SocialMediaIcons from '@/components/socialmediaIcons.jsx';
+import { useState, useEffect } from 'react';
 
+
+const phrases = ["Hello! I'm Samuel Olorunfemi.", "I'm a Fullstack Developer."];
 
 function LandingPage() {
 
-  const handleAnimationComplete = () => {
-    console.log('All letters have animated!');
-  };
+ 
+  const [charIndex, setCharIndex] = useState(0);
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    const current = phrases[phraseIndex];
+    let timeout;
+
+    if (!deleting && charIndex < current.length) {
+      timeout = setTimeout(() => setCharIndex(c => c + 1), 50);
+    } else if (!deleting && charIndex === current.length) {
+      timeout = setTimeout(() => setDeleting(true), 1800);
+    } else if (deleting && charIndex > 0) {
+      timeout = setTimeout(() => setCharIndex(c => c - 1), 30);
+    } else if (deleting && charIndex === 0) {
+      timeout = setTimeout(() => {
+        setDeleting(false);
+        setPhraseIndex(i => (i + 1) % phrases.length);
+      }, 0);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [charIndex, deleting, phraseIndex]);
 
   const isLowEnd = navigator.hardwareConcurrency <= 4;
 
@@ -22,7 +45,7 @@ function LandingPage() {
     <div className="min-h-screen bg-black text-white">
       <Navbar />
       <section id="home" className="relative">
-      <div style={{ width: '100%', height: 'calc(100vh - 80px)', position: 'relative' }}>
+        <div style={{ width: '100%', height: 'calc(100vh - 80px)', position: 'relative' }}>
 
           {!isLowEnd ? (
             <Prism
@@ -47,26 +70,16 @@ function LandingPage() {
         {/* Hero text + image */}
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-end pb-16 gap-5 px-6">
 
-<img
-  src="/samuel.webp"
-  alt="Samuel Olorunfemi"
-  className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-2 border-white/20 shadow-lg"
-/>
-
-          <SplitText
-            text="Hello! I'm Samuel Olorunfemi"
-            className="text-3xl md:text-5xl font-bold"
-            delay={50}
-            duration={1.25}
-            ease="power3.out"
-            splitType="chars"
-            from={{ opacity: 0, y: 40 }}
-            to={{ opacity: 1, y: 0 }}
-            threshold={0.1}
-            rootMargin="-100px"
-            textAlign="center"
-            onLetterAnimationComplete={handleAnimationComplete}
+          <img
+            src="/samuel.webp"
+            alt="Samuel Olorunfemi"
+            className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-2 border-white/20 shadow-lg"
           />
+
+          <div className="text-3xl md:text-5xl font-bold text-center">
+            <span>{phrases[phraseIndex].slice(0, charIndex)}</span>
+            <span className="animate-pulse text-purple-400">|</span>
+          </div>
 
           <SocialMediaIcons />
 
