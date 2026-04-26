@@ -1,4 +1,4 @@
-import TechStack from './TechStack.jsx';
+import TechStack from '../components/TechStack.jsx';
 
 function AboutMe() {
   return (
