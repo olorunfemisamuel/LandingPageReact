@@ -22,6 +22,14 @@ const Prism = ({
 
   useEffect(() => {
     const container = containerRef.current;
+    const onVisibilityChange = () => {
+      if (document.hidden) stopRAF();
+      else startRAF();
+    };
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    
+    // Add to cleanup return:
+    document.removeEventListener('visibilitychange', onVisibilityChange);
     if (!container) return;
 
     const H = Math.max(0.001, height);
@@ -43,7 +51,10 @@ const Prism = ({
     const HOVSTR = Math.max(0, hoverStrength || 1);
     const INERT = Math.max(0, Math.min(1, inertia || 0.12));
 
-    const dpr = Math.min(2, window.devicePixelRatio || 1);
+
+
+    // After — render at max 1x on any device
+const dpr = Math.min(1, window.devicePixelRatio || 1);
     const renderer = new Renderer({
       dpr,
       alpha: transparent,

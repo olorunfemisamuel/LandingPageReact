@@ -9,25 +9,32 @@ function LandingPage() {
   const handleAnimationComplete = () => {
     console.log('All letters have animated!');
   };
-  
- 
+
+  const isLowEnd = navigator.hardwareConcurrency <= 4;  
 
   return (
     <div className="min-h-screen bg-black text-white">
       <Navbar />
       <section id="home" className="relative">
-      <div style={{ width: '100%', height: '600px', position: 'relative' }}>
-       <Prism
-          animationType="rotate"
-          timeScale={0.5}
-          height={3.5}
-          baseWidth={5.5}
-          scale={3.6}
-          hueShift={0}
-          colorFrequency={1}
-           noise={0}
-           glow={1}
-           />
+      <div style={{ width: '100%', height: '400px', position: 'relative' }}>
+
+        {!isLowEnd ? (  
+          <Prism
+            animationType="rotate"
+            timeScale={0.5}
+            height={3.5}
+            baseWidth={5.5}
+            scale={3.6}
+            hueShift={0}
+            colorFrequency={1}
+            noise={0}
+            glow={1}
+            suspendWhenOffscreen={true}
+          />
+        ) : (
+          <div style={{ width: '100%', height: '400px', background: 'radial-gradient(ellipse at center, #4a1a6e 0%, #000 70%)' }} />
+        )}
+
         </div>
         <div className="absolute inset-0 z-0 bg-linear-to-t from-black via-black/40 to-black/10" />
 
@@ -50,10 +57,7 @@ function LandingPage() {
       </section>
       <Footer />
     </div>
-
-
   )
 }
 
 export default LandingPage
-

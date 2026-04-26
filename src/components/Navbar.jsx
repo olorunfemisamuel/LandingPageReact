@@ -44,7 +44,7 @@ function Navbar() {
         buttonTextColor="#fff"
         ease="power3.out"
       />
-    </header>
+    </header> 
   )
 }
 
