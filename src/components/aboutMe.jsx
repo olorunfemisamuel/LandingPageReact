@@ -1,4 +1,5 @@
 import TechStack from '@/components/techStack.jsx';
+import ProjectCards from '@/components/ProjectCards';
 
 function AboutMe() {
   return (
@@ -49,37 +50,7 @@ function AboutMe() {
 
           <TechStack />
 
-          <div className="mt-4 flex flex-col gap-3">
-            {[
-              {
-                name: "DigitalEdHub",
-                desc: "E-learning platform — courses, payments, community",
-                url: "https://digitaledhub.com.ng"
-              },
-              {
-                name: "Shopeasy",
-                desc: "Open source contributor",
-                url: "https://github.com/olorunfemisamuel/ShopEasy"
-              },
-            ].map((project) => (
-              
-               <a key={project.name}
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-start gap-3 p-4 rounded-xl border border-white/10 bg-white/5 hover:border-purple-500/40 hover:bg-purple-500/5 transition-all duration-200 group"
-              >
-                <div className="w-2 h-2 mt-1.5 rounded-full bg-purple-400 shrink-0 group-hover:bg-pink-400 transition-colors duration-200" />
-                <div>
-                  <p className="text-white font-semibold text-sm group-hover:text-purple-300 transition-colors duration-200">
-                    {project.name}
-                    <span className="ml-2 text-white/20 text-xs group-hover:text-purple-400">↗</span>
-                  </p>
-                  <p className="text-white/40 text-xs mt-0.5">{project.desc}</p>
-                </div>
-              </a>
-            ))}
-          </div>
+          <ProjectCards />
 
         </div>
 
