@@ -1,12 +1,11 @@
 import { useRef, useState } from 'react';
 
-// 👈 Card is now outside ProjectCards
 const Card = ({ project }) => (
   
     <a href={project.url}
     target="_blank"
     rel="noopener noreferrer"
-    className="group rounded-xl border border-white/10 bg-white/5 hover:border-purple-500/40 hover:bg-purple-500/5 transition-all duration-300 overflow-hidden flex flex-col"
+    className="group rounded-xl border border-white/10 bg-white/5 hover:border-purple-500/40 hover:bg-purple-500/5 transition-all duration-300 overflow-hidden flex flex-col flex-shrink-0 w-[75vw] md:w-[280px] snap-start"
   >
     <div className="w-full h-40 overflow-hidden bg-white/5 relative">
       <img
@@ -52,21 +51,25 @@ const projects = [
 ];
 
 function ProjectCards() {
+  const scrollRef = useRef(null);
   const [current, setCurrent] = useState(0);
-  const touchStartX = useRef(null);
-  const touchEndX = useRef(null);
 
-  const prev = () => setCurrent(i => (i - 1 + projects.length) % projects.length);
-  const next = () => setCurrent(i => (i + 1) % projects.length);
+  const scrollTo = (index) => {
+    const container = scrollRef.current;
+    if (!container) return;
+    const card = container.children[index];
+    if (!card) return;
+    card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    setCurrent(index);
+  };
 
-  const onTouchStart = (e) => { touchStartX.current = e.touches[0].clientX; };
-  const onTouchMove = (e) => { touchEndX.current = e.touches[0].clientX; };
-  const onTouchEnd = () => {
-    if (touchStartX.current === null || touchEndX.current === null) return;
-    const diff = touchStartX.current - touchEndX.current;
-    if (Math.abs(diff) > 50) diff > 0 ? next() : prev();
-    touchStartX.current = null;
-    touchEndX.current = null;
+  const handleScroll = () => {
+    const container = scrollRef.current;
+    if (!container) return;
+    const scrollLeft = container.scrollLeft;
+    const cardWidth = container.children[0]?.offsetWidth + 16;
+    const index = Math.round(scrollLeft / cardWidth);
+    setCurrent(index);
   };
 
   return (
@@ -75,34 +78,30 @@ function ProjectCards() {
         Featured Projects
       </span>
 
-      {/* Desktop — side by side */}
-      <div className="hidden md:grid md:grid-cols-2 gap-4">
+      {/* Scrollable row — works on both mobile and desktop */}
+      <div
+        ref={scrollRef}
+        onScroll={handleScroll}
+        className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2"
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+      >
+        <style>{`div::-webkit-scrollbar { display: none; }`}</style>
         {projects.map((project) => (
           <Card key={project.name} project={project} />
         ))}
       </div>
 
-      {/* Mobile — swipeable one at a time */}
-      <div className="md:hidden">
-        <div
-          onTouchStart={onTouchStart}
-          onTouchMove={onTouchMove}
-          onTouchEnd={onTouchEnd}
-        >
-          <Card project={projects[current]} />
-        </div>
-
-        <div className="flex items-center justify-center gap-2 mt-3">
-          {projects.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrent(i)}
-              className={`h-2 rounded-full transition-all duration-200 ${
-                i === current ? 'bg-purple-400 w-4' : 'bg-white/20 w-2'
-              }`}
-            />
-          ))}
-        </div>
+      {/* Dots */}
+      <div className="flex items-center justify-center gap-2">
+        {projects.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => scrollTo(i)}
+            className={`h-2 rounded-full transition-all duration-200 ${
+              i === current ? 'bg-purple-400 w-4' : 'bg-white/20 w-2'
+            }`}
+          />
+        ))}
       </div>
     </div>
   );
