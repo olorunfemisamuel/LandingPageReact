@@ -3,6 +3,7 @@ import Prism from '../components/Prism';
 import Footer from '../components/Footer.jsx'
 import SplitText from "../components/SplitText";
 import AboutMe from '@/components/aboutMe.jsx';
+import SocialMediaIcons from '@/components/socialmediaIcons.jsx';
 
 
 function LandingPage() {
@@ -21,7 +22,7 @@ function LandingPage() {
     <div className="min-h-screen bg-black text-white">
       <Navbar />
       <section id="home" className="relative">
-        <div style={{ width: '100%', height: '500px', position: 'relative' }}>
+      <div style={{ width: '100%', height: 'calc(100vh - 80px)', position: 'relative' }}>
 
           {!isLowEnd ? (
             <Prism
@@ -44,7 +45,7 @@ function LandingPage() {
         <div className="absolute inset-0 z-0 bg-linear-to-t from-black via-black/40 to-black/10" />
 
         {/* Hero text + image */}
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-end pb-8 gap-4 px-6">
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-end pb-16 gap-5 px-6">
 
 <img
   src="/samuel.webp"
@@ -66,6 +67,8 @@ function LandingPage() {
             textAlign="center"
             onLetterAnimationComplete={handleAnimationComplete}
           />
+
+          <SocialMediaIcons />
 
           {/* Responsive subtitle */}
           <p className="text-xs sm:text-sm text-white/60 tracking-widest uppercase text-center px-4">
