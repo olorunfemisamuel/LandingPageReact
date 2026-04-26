@@ -1,6 +1,7 @@
 const skills = [
-    "JavaScript", "Vue.js", "Nuxt.js", "React",
-    "PHP", "Laravel", "Livewire", "TypeScript"
+    "HTML", "CSS", "JavaScript", "TypeScript",
+    "Tailwind CSS", "Vue.js", "Nuxt.js", "React",
+    "PHP", "Laravel", "Livewire"
   ];
   
   function AboutMe() {
@@ -11,12 +12,10 @@ const skills = [
           {/* Left — Text */}
           <div className="flex flex-col gap-6">
   
-            {/* Label */}
             <span className="text-xs uppercase tracking-[0.3em] text-purple-400 font-semibold">
               About Me
             </span>
   
-            {/* Heading */}
             <h2 className="text-4xl md:text-5xl font-bold leading-tight">
               I build things <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">
@@ -24,7 +23,6 @@ const skills = [
               </span>
             </h2>
   
-            {/* Bio */}
             <p className="text-white/60 text-base leading-relaxed">
               I'm a fullstack developer with <span className="text-white font-semibold">3+ years of experience</span> building
               and shipping production-ready products for real clients. My work converts — from landing pages
@@ -37,7 +35,6 @@ const skills = [
               e-learning platform handling courses, payments, and community features end-to-end.
             </p>
   
-            {/* Years of experience stat */}
             <div className="flex items-center gap-4 mt-2">
               <div className="flex flex-col">
                 <span className="text-5xl font-black text-white">3+</span>
@@ -51,7 +48,7 @@ const skills = [
             </div>
           </div>
   
-          {/* Right — Skills */}
+          {/* Right — Skills + Projects */}
           <div className="flex flex-col gap-6">
             <span className="text-xs uppercase tracking-[0.3em] text-purple-400 font-semibold">
               Tech Stack
@@ -68,22 +65,35 @@ const skills = [
               ))}
             </div>
   
-            {/* Highlighted projects */}
             <div className="mt-4 flex flex-col gap-3">
               {[
-                { name: "DigitalEdHub", desc: "E-learning platform — courses, payments, community" },
-                { name: "Shopeasy", desc: "Open source contributor" },
+                {
+                  name: "DigitalEdHub",
+                  desc: "E-learning platform — courses, payments, community",
+                  url: "https://digitaledhub.com.ng"  
+                },
+                {
+                  name: "Shopeasy",
+                  desc: "Open source contributor",
+                  url: "https://github.com/olorunfemisamuel/ShopEasy"  
+                },
               ].map((project) => (
-                <div
-                  key={project.name}
-                  className="flex items-start gap-3 p-4 rounded-xl border border-white/10 bg-white/5 hover:border-purple-500/40 transition-all duration-200"
+                
+                <a  key={project.name}
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-3 p-4 rounded-xl border border-white/10 bg-white/5 hover:border-purple-500/40 hover:bg-purple-500/5 transition-all duration-200 group"
                 >
-                  <div className="w-2 h-2 mt-1.5 rounded-full bg-purple-400 shrink-0" />
+                  <div className="w-2 h-2 mt-1.5 rounded-full bg-purple-400 shrink-0 group-hover:bg-pink-400 transition-colors duration-200" />
                   <div>
-                    <p className="text-white font-semibold text-sm">{project.name}</p>
+                    <p className="text-white font-semibold text-sm group-hover:text-purple-300 transition-colors duration-200">
+                      {project.name}
+                      <span className="ml-2 text-white/20 text-xs group-hover:text-purple-400">↗</span>
+                    </p>
                     <p className="text-white/40 text-xs mt-0.5">{project.desc}</p>
                   </div>
-                </div>
+                </a>
               ))}
             </div>
           </div>
