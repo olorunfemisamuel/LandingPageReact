@@ -22,8 +22,8 @@ function AboutMe() {
 
           <p className="text-white/60 text-base leading-relaxed">
             I'm a fullstack developer with <span className="text-white font-semibold">3+ years of experience</span> building
-            and shipping production-ready products for real clients. My work converts — from landing pages
-            to full platforms, I write code that gets results.
+            and shipping products for real clients, real users. My work converts — from landing pages
+            to full platforms, I write code that solve problems.
           </p>
 
           <p className="text-white/60 text-base leading-relaxed">

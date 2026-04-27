@@ -5,6 +5,7 @@ import AboutMe from '@/components/aboutMe.jsx';
 import SocialMediaIcons from '@/components/socialmediaIcons.jsx';
 import { useState, useEffect } from 'react';
 import ServicesSection from '@/components/ServicesSection.jsx';
+import Contact from '@/components/Contact.jsx';
 
 
 const phrases = ["Hello! I'm Samuel Olorunfemi.", "I'm a Fullstack Developer."];
@@ -84,6 +85,16 @@ function LandingPage() {
 
           <SocialMediaIcons />
 
+
+          {/* CTA Button */}
+
+          <a href="#contact"
+            className="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-purple-600  text-white font-semibold text-sm transition-all duration-300 hover:scale-105"
+          >
+            <span>Let's Work Together</span>
+            
+          </a>
+
           {/* Responsive subtitle */}
           <p className="text-xs sm:text-sm text-white/60 tracking-widest uppercase text-center px-4">
             Explore my portfolio
@@ -130,6 +141,8 @@ function LandingPage() {
       <AboutMe />
 
       <ServicesSection />
+
+      <Contact />
 
       <Footer />
     </div>
