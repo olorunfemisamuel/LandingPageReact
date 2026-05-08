@@ -2,7 +2,7 @@ const services = [
   {
     title: "Web Development",
     desc: "From landing pages to full-scale web applications — I build fast, responsive, and production-ready websites/web applications tailored to your business goals.",
-    stat: "6+ Projects",
+    stat: "6 Projects",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="3" width="20" height="14" rx="2" />

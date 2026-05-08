@@ -1,11 +1,20 @@
 import { useRef, useState } from 'react';
 
+const stackIcons = {
+  "Vue.js": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg",
+  "Nuxt.js": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nuxtjs/nuxtjs-original.svg",
+  "JavaScript": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+  "React": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+  "TypeScript": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+  "Open Source": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+};
+
 const Card = ({ project }) => (
   
     <a href={project.url}
     target="_blank"
     rel="noopener noreferrer"
-    className="group rounded-xl border border-white/10 bg-white/5 hover:border-purple-500/40 hover:bg-purple-500/5 transition-all duration-300 overflow-hidden flex flex-col flex-shrink-0 w-[75vw] md:w-[280px] snap-start"
+    className="group rounded-xl border border-white/10 bg-white/5 hover:border-purple-500/40 hover:bg-purple-500/5 transition-all duration-300 overflow-hidden flex flex-col shrink-0 w-[75vw] md:w-[280px] snap-start"
   >
     <div className="w-full h-40 overflow-hidden bg-white/5 relative">
       <img
@@ -17,9 +26,20 @@ const Card = ({ project }) => (
           e.target.parentElement.style.background = 'linear-gradient(135deg, #1B1722, #2F293A)';
         }}
       />
-      <span className="absolute top-2 left-2 text-[10px] uppercase tracking-widest px-2 py-1 rounded-full bg-black/50 text-purple-400 border border-purple-500/30">
-        {project.tag}
-      </span>
+     {project.tag && (
+  <span className="absolute top-2 left-2 flex items-center gap-1 text-[10px] uppercase tracking-widest px-2 py-1 rounded-full bg-black/50 text-purple-400 border border-purple-500/30">
+    {stackIcons[project.tag] && (
+      <img
+        src={stackIcons[project.tag]}
+        alt={project.tag}
+        className="w-3.5 h-3.5 object-contain"
+        style={project.tag === "Open Source" ? { filter: "invert(1)" } : {}}
+      />
+    )}
+    {project.tag}
+  </span>
+)}
+
     </div>
     <div className="p-4 flex items-start justify-between gap-3 flex-1">
       <div>
@@ -39,42 +59,46 @@ const projects = [
     desc: "E-learning platform — courses, payments, and community features built end-to-end.",
     url: "https://digitaledhub.com.ng",
     image: "/projects/digitaledhub.png",
+    tag: "Nuxt.js"
   },
   {
     name: "Shopeasy",
     desc: "Open source e-commerce project — contributed core features and improvements.",
     url: "https://github.com/olorunfemisamuel/ShopEasy",
     image: "/projects/github.png",
+    tag: "Open Source"
   },
 
   {
     name: "The Lightfortress Church",
-    desc: "Developer on Project — Vue.js",
+    desc: "Built for 300+ conference attendees",
     url: "https://joinbcc25.org",
     image: "/projects/bcc.png",
+    tag: "Vue.js"
   },
 
 
   {
-    name: "Technology Company Website",
+    name: "Bytespark Technology Group",
     desc: "Frontend Developer on Project — Vanilla Javascript.",
     url: "https://bytespark.com.ng/",
     image: "/projects/bytespark.png",
+    tag: "JavaScript"
   },
 
   {
-    name: "Portfolio",
-    desc: "Open source e-commerce project — contributed core features and improvements.",
+    name: "Personal Portfolio",
+    desc: "Developer on Project — Vue.js",
     url: "https://themofemi-portfolio.vercel.app/",
     image: "/projects/mo.png",
   },
 
   {
-    name: "Financial Company Website",
-    desc: "Open source e-commerce project — contributed core features and improvements.",
+    name: "Deutsche Partners Holding",
+    desc: "Developer on Project — Vue.js",
     url: "https://dph-website-qeq8.vercel.app/",
     image: "/projects/dph.png",
-    // tag: "Frontend "
+    tag: "Vue.js"
   },
 
 
