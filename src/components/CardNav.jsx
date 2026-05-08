@@ -48,11 +48,11 @@ const CardNav = ({
           </div>
 
           {/* CTA button */}
-          <a href="#contact"
+          <a href="#projects"
             className="rounded-[8px] px-4 py-2 font-medium text-sm cursor-pointer border-0 transition-colors duration-300"
             style={{ backgroundColor: buttonBgColor, color: buttonTextColor }}
           >
-            Contact
+            Projects
           </a>
         </div>
 

@@ -127,7 +127,7 @@ function ProjectCards() {
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4" id="projects"  >
       <span className="text-xs uppercase tracking-[0.3em] text-purple-400 font-semibold">
         Featured Projects
       </span>
