@@ -7,8 +7,8 @@ function Navbar() {
       bgColor: "#1B1722",
       textColor: "#fff",
       links: [
-        { label: "Company", ariaLabel: "About Company", href: "#about" },
-        { label: "Careers", ariaLabel: "About Careers", href: "#about" }
+        { label: "About Me", ariaLabel: "About Company", href: "#about" },
+        { label: "Projects", ariaLabel: "About Careers", href: "#projects" }
       ]
     },
     // {
