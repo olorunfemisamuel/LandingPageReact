@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import ServicesSection from '@/components/ServicesSection.jsx';
 import Contact from '@/components/Contact.jsx';
 import TestimonialSection from '@/components/TestimonialSection.jsx';
+import AvailableStrip from '@/components/AvailableStrip.jsx';
 
 const phrases = ["Hello! I'm Samuel Olorunfemi.", "I'm a Fullstack Developer."];
 
@@ -157,9 +158,14 @@ function LandingPage() {
 
       <ServicesSection />
 
-      <Contact />
 
       <TestimonialSection />
+
+      <AvailableStrip />
+
+      <Contact />
+
+     
 
       <Footer />
     </div>

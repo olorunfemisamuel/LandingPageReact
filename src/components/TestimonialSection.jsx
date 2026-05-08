@@ -7,12 +7,12 @@ const testimonials = [
       initials: "LR",
     },
     {
-      quote:
-        "Working with Samuel was seamless from start to finish. He understood our brand instantly and delivered a polished, professional result that our team is proud of.",
-      name: "Deutsche Partners Holding",
-      role: "Finance & Holdings Company",
-      initials: "DP",
-    },
+        quote:
+          "Our income went up by 10% after Samuel built our platform. Students said the platform made learning easy and seamless.",
+        name: "DigitalEd Hub",
+        role: "E-Learning Platform",
+        initials: "DE",
+      },
     {
       quote:
         "Samuel delivered our conference website on time and it handled all 300+ attendees without a hitch. Clean, fast, and exactly what we envisioned.",
