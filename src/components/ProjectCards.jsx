@@ -91,6 +91,7 @@ const projects = [
     desc: "Developer on Project — Vue.js",
     url: "https://themofemi-portfolio.vercel.app/",
     image: "/projects/mo.png",
+    tag: "Vue.js"
   },
 
   {

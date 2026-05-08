@@ -11,15 +11,15 @@ function Navbar() {
         { label: "Careers", ariaLabel: "About Careers", href: "#about" }
       ]
     },
-    {
-      label: "Projects",
-      bgColor: "#2F293A",
-      textColor: "#fff",
-      links: [
-        { label: "Featured", ariaLabel: "Featured Projects", href: "#services" },
-        { label: "Case Studies", ariaLabel: "Project Case Studies", href: "#services" }
-      ]
-    },
+    // {
+    //   label: "Projects",
+    //   bgColor: "#2F293A",
+    //   textColor: "#fff",
+    //   links: [
+    //     { label: "Featured", ariaLabel: "Featured Projects", href: "#services" },
+    //     { label: "Case Studies", ariaLabel: "Project Case Studies", href: "#services" }
+    //   ]
+    // },
     {
       label: "Contact",
       bgColor: "#2F293A",

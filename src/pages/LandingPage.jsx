@@ -6,7 +6,7 @@ import SocialMediaIcons from '@/components/socialmediaIcons.jsx';
 import { useState, useEffect } from 'react';
 import ServicesSection from '@/components/ServicesSection.jsx';
 import Contact from '@/components/Contact.jsx';
-
+import TestimonialSection from '@/components/TestimonialSection.jsx';
 
 const phrases = ["Hello! I'm Samuel Olorunfemi.", "I'm a Fullstack Developer."];
 
@@ -89,7 +89,7 @@ function LandingPage() {
           {/* CTA Button */}
 
 
-          <a href="/cv.pdf"
+          <a href="/src/assets/document/Olorunfemi_Samuel_ATS_CV_.pdf"
               download
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/20 bg-white/5 hover:border-purple-500 hover:bg-purple-500/10 text-white font-semibold text-sm transition-all duration-300 hover:scale-105"
             >
@@ -158,6 +158,8 @@ function LandingPage() {
       <ServicesSection />
 
       <Contact />
+
+      <TestimonialSection />
 
       <Footer />
     </div>
